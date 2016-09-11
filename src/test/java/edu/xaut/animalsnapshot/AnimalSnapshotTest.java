@@ -91,7 +91,7 @@ public class AnimalSnapshotTest {
 
         String snapshotInSpecifiedTime = animalSnapshot.getSnapShot(historyData, id);
 
-        assertEquals("Invalid format for SnapshotId.", snapshotInSpecifiedTime);
+        assertEquals("Invalid format.", snapshotInSpecifiedTime);
     }
 
     @Test
@@ -110,7 +110,7 @@ public class AnimalSnapshotTest {
 
         String snapshotInSpecifiedTime = animalSnapshot.getSnapShot(historyData, id);
 
-        assertEquals("Invalid format for SnapshotTime.", snapshotInSpecifiedTime);
+        assertEquals("Invalid format.", snapshotInSpecifiedTime);
     }
 
     @Test
@@ -129,7 +129,7 @@ public class AnimalSnapshotTest {
 
         String snapshotInSpecifiedTime = animalSnapshot.getSnapShot(historyData, id);
 
-        assertEquals("Invalid format for AnimalCoordinates.", snapshotInSpecifiedTime);
+        assertEquals("Invalid format.", snapshotInSpecifiedTime);
     }
 
     @Test
