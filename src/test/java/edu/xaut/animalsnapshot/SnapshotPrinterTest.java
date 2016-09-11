@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -34,6 +35,18 @@ public class SnapshotPrinterTest {
         String actual = snapshotPrinter.printMultipleAnimalCoordinates(snapshot);
 
         assertEquals("cat1 12 8\ncat2 2 3\n", actual);
+    }
+
+    @Test
+    public void testSortWithAnimalId() throws Exception {
+        LinkedHashMap<String, Animal> animals = new LinkedHashMap<String, Animal>();
+        animals.put("cat2", new Animal("cat2", 2, 3));
+        animals.put("cat1", new Animal("cat1", 10, 9));
+        animals.put("cat3", new Animal("cat3", 8, 3));
+
+        List<Animal> animalsList =  snapshotPrinter.sortWithAnimalId(animals);
+
+        assertEquals("[animalId='cat1, animalId='cat2, animalId='cat3]", animalsList.toString());
     }
 
     @Test
