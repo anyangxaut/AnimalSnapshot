@@ -13,14 +13,14 @@ public class InputVerification {
 
     public String isSnapshotIdValid(String snapshotId) throws InvalidFormatException {
         if (!snapshotId.matches(idValidRegex)) {
-            throw new InvalidFormatException("Invalid format for SnapshotId.");
+            throw new InvalidFormatException("Invalid format.");
         }
         return snapshotId;
     }
 
     public String isSnapshotTimeValid(String snapshotTime) throws InvalidFormatException {
         if (!snapshotTime.matches(timeValidRegex)) {
-            throw new InvalidFormatException("Invalid format for SnapshotTime.");
+            throw new InvalidFormatException("Invalid format.");
         }
         return snapshotTime;
     }
@@ -28,7 +28,7 @@ public class InputVerification {
     public String isAnimalCoordinatesValid(String animalCoordinates) throws InvalidFormatException {
         String[] informations = animalCoordinates.split(" ");
         if (informations.length != 3 && informations.length != 5) {
-            throw new InvalidFormatException("Invalid format for AnimalCoordinates.");
+            throw new InvalidFormatException("Invalid format.");
         }
         return animalCoordinates;
     }
