@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
  * Created by anyang on 2016/9/10.
  */
 public class DataFormatWithOriginalCoordinates {
+
     private InputVerification inputVerification;
 
     public DataFormatWithOriginalCoordinates() {
