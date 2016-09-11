@@ -1,23 +1,44 @@
 package edu.xaut.animalsnapshot;
 
+import edu.xaut.model.Snapshot;
+
+import java.util.LinkedHashMap;
+
 /**
  * Created by anyang on 2016/9/10.
  */
 public class AnimalSnapshot {
 
-    public static void main(String[] args) {
-        final String historyData = "e4e87cb2-8e9a-4749-abb6-26c59344dfee\n" +
-                "2016/09/02 22:30:46\n" +
-                "cat1 10 9\n\n" +
-                "351055db-33e6-4f9b-bfe1-16f1ac446ac1\n" +
-                "2016/09/02 22:30:52\n" +
-                "cat1 10 9 2 -1\n" +
-                "cat2 2 3\n\n" +
-                "dcfa0c7a-5855-4ed2-bc8c-4accae8bd155\n" +
-                "2016/09/02 22:31:02\n" +
-                "cat1 12 8 3 4";
-        for (String item : historyData.split("\n")) {
-            System.out.println(item);
+    public String getSnapShot(String historyData, String id) {
+        LinkedHashMap<String, Snapshot> historySnapshots = null;
+        try {
+            historySnapshots = convertToObjectFormat(historyData);
+            Snapshot snapshotInSpecifiedTime = historySnapshots.get(id);
+            return printSnapshot(snapshotInSpecifiedTime);
+        } catch (Exception e) {
+            return e.getMessage();
         }
+    }
+
+    private LinkedHashMap<String, Snapshot> convertToObjectFormat(String historyData) throws Exception {
+        LinkedHashMap<String, Snapshot> originalCoordinates = formatWithOriginalCoordinates(historyData);
+        return formatWithNewestCoordinates(originalCoordinates);
+    }
+
+    private LinkedHashMap<String, Snapshot> formatWithOriginalCoordinates(String historyData)
+            throws Exception {
+        DataFormatWithOriginalCoordinates dataFormat = new DataFormatWithOriginalCoordinates();
+        return dataFormat.format(historyData);
+    }
+
+    private LinkedHashMap<String, Snapshot> formatWithNewestCoordinates(
+            LinkedHashMap<String, Snapshot> originalCoordinates) throws Exception {
+        DataFormatWithNewestCoordinates dataFormat = new DataFormatWithNewestCoordinates();
+        return dataFormat.format(originalCoordinates);
+    }
+
+    private String printSnapshot(Snapshot snapshot) {
+        SnapshotPrinter snapshotPrinter = new SnapshotPrinter();
+        return snapshotPrinter.printMultipleAnimalCoordinates(snapshot);
     }
 }
