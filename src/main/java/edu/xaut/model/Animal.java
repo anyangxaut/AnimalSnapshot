@@ -45,4 +45,9 @@ public class Animal {
     public int getyCoordinateInCurrentTime() {
         return yCoordinate + yOffset;
     }
+
+    @Override
+    public String toString() {
+        return "animalId='" + animalId;
+    }
 }
