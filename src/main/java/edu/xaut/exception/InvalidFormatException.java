@@ -1,4 +1,4 @@
-package edu.xaut.animalsnapshot;
+package edu.xaut.exception;
 
 /**
  * Created by anyang on 2016/9/10.
