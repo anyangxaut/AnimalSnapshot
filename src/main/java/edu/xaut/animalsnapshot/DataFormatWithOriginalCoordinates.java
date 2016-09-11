@@ -1,37 +1,36 @@
 package edu.xaut.animalsnapshot;
 
+import edu.xaut.exception.InvalidFormatException;
 import edu.xaut.model.Animal;
 import edu.xaut.model.Snapshot;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 /**
  * Created by anyang on 2016/9/10.
  */
 public class DataFormatWithOriginalCoordinates {
-    private final String data;
+    private InputVerification inputVerification;
 
-    public DataFormatWithOriginalCoordinates(String data) {
-        this.data = data;
+    public DataFormatWithOriginalCoordinates() {
+        this.inputVerification = new InputVerification();
     }
 
-    public LinkedHashMap<String, Snapshot> format() {
+    public LinkedHashMap<String, Snapshot> format(String data) throws InvalidFormatException {
         LinkedHashMap<String, Snapshot> historySnapshot = new LinkedHashMap<String, Snapshot>();
         String[] dataArray = data.split("\n");
-
         for (int i = 0; i < dataArray.length; i++) {
-            String id = dataArray[i++];
-            String time = dataArray[i++];
-            List<Animal> animals = new ArrayList<Animal>();
+            String snapshotId = inputVerification.isSnapshotIdValid(dataArray[i++]);
+            String snapshotTime = inputVerification.isSnapshotTimeValid(dataArray[i++]);
+            LinkedHashMap<String, Animal> animals = new LinkedHashMap<String, Animal>();
             do {
-                animals.add(createAnimal(dataArray[i++]));
+                String animalCoordinates = inputVerification.isAnimalCoordinatesValid(dataArray[i++]);
+                Animal animal = createAnimal(animalCoordinates);
+                animals.put(animal.getAnimalId(), animal);
             }while((i < dataArray.length) && (!dataArray[i].equals("")));
-            Snapshot snapshot = createSnapshot(id, time, animals);
-            historySnapshot.put(id, snapshot);
+            Snapshot snapshot = createSnapshot(snapshotId, snapshotTime, animals);
+            historySnapshot.put(snapshotId, snapshot);
         }
-        System.out.println(historySnapshot);
         return historySnapshot;
     }
 
@@ -49,7 +48,7 @@ public class DataFormatWithOriginalCoordinates {
         return animal;
     }
 
-    private Snapshot createSnapshot(String id, String time, List<Animal> animals) {
+    private Snapshot createSnapshot(String id, String time, LinkedHashMap<String, Animal> animals) {
         Snapshot snapshot = new Snapshot(id, time, animals);
         return snapshot;
     }
